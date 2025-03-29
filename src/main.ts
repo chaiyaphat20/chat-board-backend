@@ -8,22 +8,19 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // ตั้งค่า global prefix
   app.setGlobalPrefix('api');
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('app.port', 3000);
 
-  //เพิ่ม validation pipe
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, //ลบข้อมูลที่ไม่ได้ระบุใน DTO
-      forbidNonWhitelisted: true, //ส่ง error เมื่อมีข้อมูลที่ไม่ได้ระบุใน DTO
-      transform: true, //แปลงข้อมูลให้ตรงกับ DTO โดยอัตโนมัติ
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
 
-  // เพิ่ม ClassSerializer เพื่อให้ @Exclude() ทำงานได้
   const reflector = app.get(Reflector);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
   app.useGlobalFilters(new HttpExceptionFilter());

@@ -8,9 +8,10 @@ import { JwtStrategy } from './jwt.strategy';
 import { JwtRefreshStrategy } from './jwt-refresh.strategy';
 import { UsersModule } from '../users/users.module';
 import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports: [PassportModule, JwtModule.register({}), UsersModule, ConfigModule],
+  imports: [PassportModule, JwtModule.register({}), UsersModule, ConfigModule, PrismaModule],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, JwtRefreshStrategy, PrismaService],
   exports: [AuthService],

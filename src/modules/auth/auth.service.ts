@@ -6,7 +6,9 @@ import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { ConfigService } from '@nestjs/config';
 import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+import { AuthResponseDto, LoginDto } from './dto/login.dto';
+import { UserResponseDto } from './dto/user-response.dto';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -52,30 +54,36 @@ export class AuthService {
     return tokens;
   }
 
-  async login(loginDto: LoginDto): Promise<Tokens> {
+  async login(loginDto: LoginDto): Promise<AuthResponseDto> {
     const { username, password } = loginDto;
-
-    // หาผู้ใช้จาก username
     const user = await this.prisma.user.findUnique({
       where: { username },
     });
-
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
-    // ตรวจสอบรหัสผ่าน
     const passwordMatches = await bcrypt.compare(password, user.password);
     if (!passwordMatches) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
-    // สร้าง tokens
     const tokens = await this.getTokens(user.id, user.username);
-    // บันทึก refresh token
     await this.updateRefreshToken(user.id, tokens.refreshToken);
-
-    return tokens;
+    const userResponse = new UserResponseDto({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    });
+    const response = plainToClass(
+      AuthResponseDto,
+      new AuthResponseDto({
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+        user: userResponse,
+      }),
+    );
+    return response;
   }
 
   async logout(userId: string): Promise<boolean> {

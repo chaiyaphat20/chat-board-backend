@@ -16,4 +16,35 @@ model User {
   refreshToken   String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+  posts          Post[]
+  comments       Comment[]
+
+  @@map("users")
+}
+
+model Post {
+  id         Int       @id @default(autoincrement())
+  user_id    String    
+  topic      String    @db.VarChar(255)
+  content    String
+  category   String?   @db.VarChar(20)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  is_active  Boolean   @default(true)
+  user       User      @relation(fields: [user_id], references: [id])
+  comments   Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  user_id    String   
+  post_id    Int
+  content    String
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id])
+  post       Post     @relation(fields: [post_id], references: [id])
+
+  @@map("comments")
 }
