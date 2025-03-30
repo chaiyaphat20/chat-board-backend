@@ -13,7 +13,7 @@ export class PostsService {
   }
 
   async findAll(query: FindPostsQueryDto) {
-    return this.postsRepository.findAll(query.category, query.limit, query.offset);
+    return this.postsRepository.findAll(query.category, query.limit, query.offset ,query.userId);
   }
   async findOneWithComments(id: number) {
     const post = await this.postsRepository.findOneWithComments(id);

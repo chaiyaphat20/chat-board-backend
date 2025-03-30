@@ -57,8 +57,12 @@ export class PostsRepository {
       },
     });
   }
-  async findAll(category?: string, limit?: number, offset?: number) {
-    const where = category ? { category, is_active: true } : { is_active: true };
+  async findAll(category?: string, limit?: number, offset?: number, userId?: string) {
+    const where = {
+      is_active: true,
+      ...(category ? { category } : {}),
+      ...(userId ? { user_id: userId } : {}),
+    };
     return this.prisma.post.findMany({
       where,
       include: {
