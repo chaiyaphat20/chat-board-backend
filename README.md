@@ -39,6 +39,7 @@ npm run start:dev
 
 #### 2.4 ผมได้ทำ link สำหรับ import เข้า post man โดยวางลิงค์ตามรูป
 ```
+https://api.postman.com/collections/11272909-86ce4acd-e25a-424d-807b-ca03add8d57f?access_key=PMAT-01JQK5NZSCAVDE1Z76ZC47J50W
 ```
 ![alt text](image-1.png)
 
