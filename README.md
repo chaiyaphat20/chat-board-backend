@@ -51,7 +51,6 @@ https://api.postman.com/collections/11272909-86ce4acd-e25a-424d-807b-ca03add8d57
 ```
 - Controller
 - Service
-- File Module
 - Dto (Model ทั่วไป เช่น ทำ model ขอ body)
 - Entity (Model ของ db)
 ```
