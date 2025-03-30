@@ -1,7 +1,52 @@
-# Defined Convention
+## 1.วิธีใช้งานรันโปรแกรม
+```
+เนื่องจากเป็น app ทดสอบ ผมจึง up.env ไปให้ได้ ของจริงไม่ควรอัพ
+```
+
+#### 1.1 ลง PostgreSQL Server และ Driver   อย่าลืม password ตอนติดตั้ง
+https://www.postgresql.org/download/
+
+
+#### 1.2 ลง DBeaver เพื่อ สร้าง database ชื่อ commentApp
+
+#### 1.3 ต่อ DBeaver แล้วสร้าง db เลือก PostgreSQL และ กรอก user,password
+![alt text](image.png)
+
+
+## 2.การ ร้น โปรแกรม
+
+#### 2.1 ลง library
+```
+npm i
+```
+
+#### 2,2 สร้าง Table,Column ต่างๆจาก Prisma(Code first/Schema First) เนื่องจาก เราขึ้นโปรเจคใหม่และไม่มี DB เดิม
+
+#### 2.2.1 สร้าง Database Migration
+```
+npm run migrate:dev
+```
+
+#### 2.2.2 Schema Synchronization หรือ Schema Push เพื่อปรับปรุง DB ให้ตรงกับ schema
+```
+npm run migrate:dev
+```
+
+#### 2.3 run program  โปรแกรม รันที่ (http://localhost:8000)
+```
+npm run start:dev
+```
+
+#### 2.4 ผมได้ทำ link สำหรับ import เข้า post man โดยวางลิงค์ตามรูป
+```
+https://api.postman.com/collections/11272909-86ce4acd-e25a-424d-807b-ca03add8d57f?access_key=PMAT-01JQK5NZSCAVDE1Z76ZC47J50W
+```
+![alt text](image-1.png)
+
+## Defined Convention
 
 ### 1.Modules
-#### 1.1 แยก module ตาม domain เช่น auth, users, files
+#### 1.1 แยก module ตาม domain เช่น auth, users
 #### 2.2 แต่ละ module ประกอบด้วย
 ```
 - Controller
@@ -34,6 +79,3 @@
 ```
 
 ### 5.Env เพื่อ กำหนด config ต่างๆ
-
-### Structure
-![alt text](<Pasted Graphic.png>)
