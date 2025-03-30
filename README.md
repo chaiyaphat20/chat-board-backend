@@ -3,6 +3,11 @@
 เนื่องจากเป็น app ทดสอบ ผมจึง up.env ไปให้ได้ ของจริงไม่ควรอัพ
 ```
 
+### Swagger document
+```
+http://localhost:8000/api/docs
+```
+
 #### 1.1 ลง PostgreSQL Server และ Driver   อย่าลืม password ตอนติดตั้ง
 https://www.postgresql.org/download/
 
