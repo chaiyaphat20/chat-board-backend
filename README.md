@@ -43,6 +43,12 @@ https://api.postman.com/collections/11272909-86ce4acd-e25a-424d-807b-ca03add8d57
 ```
 ![alt text](image-1.png)
 
+## Db Diagram
+![alt text](db.png)
+
+
+
+
 ## Defined Convention
 
 ### 1.Modules
